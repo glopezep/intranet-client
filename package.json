@@ -5,6 +5,10 @@
   "main": "index.js",
   "author": "Pawa Dominicana",
   "license": "ISC",
+  "scripts": {
+    "lint": "eslint ./**/*.js",
+    "test": "yarn lint || npm run lint && NODE_ENV=test ava"
+  },
   "dependencies": {
     "request": "^2.81.0",
     "request-promise-native": "^1.0.4"
