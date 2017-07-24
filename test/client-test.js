@@ -155,3 +155,16 @@ test('Get project', async t => {
 
   t.deepEqual(response.body, project)
 })
+
+test('Get project', async t => {
+  const client = t.context.client
+  const projects = fixtures.getProjects()
+
+  nock(options.endpoints.projects)
+    .get(`/list`)
+    .reply(200, projects)
+
+  const response = await client.getProjects()
+
+  t.deepEqual(response.body, projects)
+})
