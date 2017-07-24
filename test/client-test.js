@@ -93,13 +93,26 @@ test('Get project category', async t => {
 
 test('Get project categories', async t => {
   const client = t.context.client
-  const projectCategory = fixtures.getProjectCategories()
+  const projectCategories = fixtures.getProjectCategories()
 
   nock(options.endpoints.projects)
-    .get(`/category/${projectCategory.id}`)
+    .get(`/category/list`)
+    .reply(200, projectCategories)
+
+  const response = await client.getProjectCategories()
+
+  t.deepEqual(response.body, projectCategories)
+})
+
+test('Update project category', async t => {
+  const client = t.context.client
+  const projectCategory = fixtures.getProjectCategory()
+
+  nock(options.endpoints.projects)
+    .put(`/category/${projectCategory.id}`)
     .reply(200, projectCategory)
 
-  const response = await client.getProjectCategory(projectCategory.id)
+  const response = await client.updateProjectCategory(projectCategory.id)
 
   t.deepEqual(response.body, projectCategory)
 })
