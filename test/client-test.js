@@ -1,5 +1,5 @@
 import test from 'ava'
-import nock from 'nock'
+// import nock from 'nock'
 import intranet from '../'
 
 const options = {
@@ -55,6 +55,7 @@ test('Client', t => {
   t.is(typeof client.getDeparmentsByDocumentCategory, 'function', 'getDeparmentsByDocumentCategory Should be a function')
   t.is(typeof client.updateDeparment, 'function', 'updateDeparment Should be a function')
   t.is(typeof client.deleteDeparment, 'function', 'deleteDeparment Should be a function')
+  t.is(typeof client.saveDocument, 'function', 'saveDocument Should be a function')
   t.is(typeof client.getDocument, 'function', 'getDocument Should be a function')
   t.is(typeof client.getDocuments, 'function', 'getDocuments Should be a function')
   t.is(typeof client.getDocumentsByDeparment, 'function', 'getDocumentsByDeparment Should be a function')

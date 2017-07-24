@@ -1,7 +1,5 @@
 const Client = require('./lib/client')
 
-function createClient (options) {
+exports.createClient = function createClient (options) {
   return new Client(options)
 }
-
-module.exports = createClient
