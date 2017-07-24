@@ -71,6 +71,15 @@ function getDocument () {
   }
 }
 
+function getProjectCategories () {
+  return [
+    getProjectCategory(),
+    getProjectCategory(),
+    getProjectCategory()
+  ]
+}
+
+
 function getOffices () {
   return [
     getOffice(),
@@ -136,6 +145,7 @@ module.exports = {
   getDocumentCategory,
   getDepartment,
   getDocument,
+  getProjectCategories,
   getProjects,
   getOffices,
   getPositions,

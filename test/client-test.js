@@ -90,3 +90,16 @@ test('Get project category', async t => {
 
   t.deepEqual(response.body, projectCategory)
 })
+
+test('Get project categories', async t => {
+  const client = t.context.client
+  const projectCategory = fixtures.getProjectCategories()
+
+  nock(options.endpoints.projects)
+    .get(`/category/${projectCategory.id}`)
+    .reply(200, projectCategory)
+
+  const response = await client.getProjectCategory(projectCategory.id)
+
+  t.deepEqual(response.body, projectCategory)
+})
