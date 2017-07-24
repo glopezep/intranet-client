@@ -79,7 +79,6 @@ function getProjectCategories () {
   ]
 }
 
-
 function getOffices () {
   return [
     getOffice(),

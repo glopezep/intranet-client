@@ -26,7 +26,7 @@ test('Client', t => {
   t.is(typeof client.saveProject, 'function', 'saveProject Should be a function')
   t.is(typeof client.getProject, 'function', 'getProject Should be a function')
   t.is(typeof client.getProjects, 'function', 'getProjects Should be a function')
-  t.is(typeof client.getProjectsByProjectCateogory, 'function', 'getProjectsByProjectCateogory Should be a function')
+  t.is(typeof client.getProjectsByProjectCategory, 'function', 'getProjectsByProjectCategory Should be a function')
   t.is(typeof client.updateProject, 'function', 'updateProject Should be a function')
   t.is(typeof client.deleteProject, 'function', 'deleteProject Should be a function')
   t.is(typeof client.saveOffice, 'function', 'saveOffice Should be a function')
@@ -156,7 +156,7 @@ test('Get project', async t => {
   t.deepEqual(response.body, project)
 })
 
-test('Get project', async t => {
+test('Get projects', async t => {
   const client = t.context.client
   const projects = fixtures.getProjects()
 
@@ -165,6 +165,20 @@ test('Get project', async t => {
     .reply(200, projects)
 
   const response = await client.getProjects()
+
+  t.deepEqual(response.body, projects)
+})
+
+test('Get projects by projects categories', async t => {
+  const client = t.context.client
+  const projects = fixtures.getProjects()
+  const projectCategoryId = projects[0].projectCategoryId
+
+  nock(options.endpoints.projects)
+    .get(`/category/${projectCategoryId}/projects`)
+    .reply(200, projects)
+
+  const response = await client.getProjectsByProjectCategory(projectCategoryId)
 
   t.deepEqual(response.body, projects)
 })
