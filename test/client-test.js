@@ -1,6 +1,7 @@
 import test from 'ava'
-// import nock from 'nock'
+import nock from 'nock'
 import intranet from '../'
+import fixtures from './fixtures'
 
 const options = {
   endpoints: {
@@ -62,4 +63,16 @@ test('Client', t => {
   t.is(typeof client.updateDocument, 'function', 'updateDocument Should be a function')
   t.is(typeof client.deleteDocument, 'function', 'deleteDocument Should be a function')
   t.is(typeof client.authenticate, 'function', 'authenticate Should be a function')
+})
+
+test('Save project category', async t => {
+  const client = t.context.client
+  const projectCategory = fixtures.getProjectCategory()
+
+  nock(options.endpoints.projects)
+    .post('/category/save', projectCategory)
+    .reply(201, projectCategory)
+
+  const response = await client.saveProjectCategory(projectCategory)
+  t.deepEqual(response.body, projectCategory)
 })

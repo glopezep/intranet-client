@@ -10,6 +10,7 @@
     "test": "yarn lint || npm run lint && NODE_ENV=test ava"
   },
   "dependencies": {
+    "bluebird": "^3.5.0",
     "request": "^2.81.0",
     "request-promise-native": "^1.0.4"
   },
