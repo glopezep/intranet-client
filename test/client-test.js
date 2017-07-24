@@ -116,3 +116,16 @@ test('Update project category', async t => {
 
   t.deepEqual(response.body, projectCategory)
 })
+
+test('Delete project category', async t => {
+  const client = t.context.client
+  const projectCategory = fixtures.getProjectCategory()
+
+  nock(options.endpoints.projects)
+    .delete(`/category/${projectCategory.id}`)
+    .reply(200, projectCategory)
+
+  const response = await client.deleteProjectCategory(projectCategory.id)
+
+  t.deepEqual(response.body, projectCategory)
+})
