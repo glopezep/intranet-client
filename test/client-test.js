@@ -129,3 +129,16 @@ test('Delete project category', async t => {
 
   t.deepEqual(response.body, projectCategory)
 })
+
+test('Save project', async t => {
+  const client = t.context.client
+  const project = fixtures.getProject()
+
+  nock(options.endpoints.projects)
+    .post('/save', project)
+    .reply(201, project)
+
+  const response = await client.saveProject(project)
+
+  t.deepEqual(response.body, project)
+})
