@@ -74,5 +74,19 @@ test('Save project category', async t => {
     .reply(201, projectCategory)
 
   const response = await client.saveProjectCategory(projectCategory)
+
+  t.deepEqual(response.body, projectCategory)
+})
+
+test('Get project category', async t => {
+  const client = t.context.client
+  const projectCategory = fixtures.getProjectCategory()
+
+  nock(options.endpoints.projects)
+    .get(`/category/${projectCategory.id}`)
+    .reply(200, projectCategory)
+
+  const response = await client.getProjectCategory(projectCategory.id)
+
   t.deepEqual(response.body, projectCategory)
 })
