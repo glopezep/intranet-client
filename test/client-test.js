@@ -109,7 +109,7 @@ test('Update project category', async t => {
   const projectCategory = fixtures.getProjectCategory()
 
   nock(options.endpoints.projects)
-    .put(`/category/${projectCategory.id}`)
+    .put(`/category/${projectCategory.id}`, projectCategory)
     .reply(200, projectCategory)
 
   const response = await client.updateProjectCategory(projectCategory.id)
@@ -181,4 +181,17 @@ test('Get projects by projects categories', async t => {
   const response = await client.getProjectsByProjectCategory(projectCategoryId)
 
   t.deepEqual(response.body, projects)
+})
+
+test('Update project', async t => {
+  const client = t.context.client
+  const project = fixtures.getProject()
+
+  nock(options.endpoints.projects)
+    .put(`/${project.id}`, project)
+    .reply(200, project)
+
+  const response = await client.updateProject(project.id)
+
+  t.deepEqual(response.body, project)
 })
