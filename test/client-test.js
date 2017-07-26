@@ -221,3 +221,29 @@ test('Save office', async t => {
 
   t.deepEqual(response.body, office)
 })
+
+test('Get office', async t => {
+  const client = t.context.client
+  const office = fixtures.getOffice()
+
+  nock(options.endpoints.offices)
+    .get(`/${office.id}`)
+    .reply(200, office)
+
+  const response = await client.getOffice(office.id)
+
+  t.deepEqual(response.body, office)
+})
+
+test('Get offices', async t => {
+  const client = t.context.client
+  const offices = fixtures.getOffices()
+
+  nock(options.endpoints.offices)
+    .get(`/list`)
+    .reply(200, offices)
+
+  const response = await client.getOffices()
+
+  t.deepEqual(response.body, offices)
+})
