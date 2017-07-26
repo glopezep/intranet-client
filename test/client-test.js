@@ -260,3 +260,16 @@ test('Update office', async t => {
 
   t.deepEqual(response.body, office)
 })
+
+test('Delete office', async t => {
+  const client = t.context.client
+  const office = fixtures.getOffice()
+
+  nock(options.endpoints.offices)
+    .delete(`/${office.id}`)
+    .reply(200, office)
+
+  const response = await client.deleteOffice(office.id)
+
+  t.deepEqual(response.body, office)
+})
