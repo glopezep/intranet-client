@@ -208,3 +208,16 @@ test('Delete project', async t => {
 
   t.deepEqual(response.body, project)
 })
+
+test('Save office', async t => {
+  const client = t.context.client
+  const office = fixtures.getOffice()
+
+  nock(options.endpoints.offices)
+    .post('/save', office)
+    .reply(201, office)
+
+  const response = await client.saveOffice(office)
+
+  t.deepEqual(response.body, office)
+})
