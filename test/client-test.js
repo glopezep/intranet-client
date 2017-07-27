@@ -325,3 +325,16 @@ test('Update position', async t => {
 
   t.deepEqual(response.body, position)
 })
+
+test('Delete position', async t => {
+  const client = t.context.client
+  const position = fixtures.getPosition()
+
+  nock(options.endpoints.users)
+    .delete(`/position/${position.id}`)
+    .reply(200, position)
+
+  const response = await client.deletePosition(position.id)
+
+  t.deepEqual(response.body, position)
+})
