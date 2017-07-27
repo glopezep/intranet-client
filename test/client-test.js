@@ -312,3 +312,16 @@ test('Get positions', async t => {
 
   t.deepEqual(response.body, positions)
 })
+
+test('Update position', async t => {
+  const client = t.context.client
+  const position = fixtures.getPosition()
+
+  nock(options.endpoints.users)
+    .put(`/position/${position.id}`, position)
+    .reply(200, position)
+
+  const response = await client.updatePosition(position.id, position)
+
+  t.deepEqual(response.body, position)
+})
