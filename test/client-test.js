@@ -273,3 +273,16 @@ test('Delete office', async t => {
 
   t.deepEqual(response.body, office)
 })
+
+test('Save position', async t => {
+  const client = t.context.client
+  const position = fixtures.getPosition()
+
+  nock(options.endpoints.users)
+    .post('/position/save', position)
+    .reply(201, position)
+
+  const response = await client.savePosition(position)
+
+  t.deepEqual(response.body, position)
+})
