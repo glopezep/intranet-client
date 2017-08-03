@@ -431,7 +431,7 @@ test('Save document category', async t => {
   t.deepEqual(response.body, documentCategory)
 })
 
-test('Save document category', async t => {
+test('Get document category', async t => {
   const client = t.context.client
   const documentCategory = fixtures.getDocumentCategory()
 
@@ -442,4 +442,17 @@ test('Save document category', async t => {
   const response = await client.getDocumentCategory(documentCategory.id)
 
   t.deepEqual(response.body, documentCategory)
+})
+
+test('Get document categories', async t => {
+  const client = t.context.client
+  const documentCategories = fixtures.getDocumentCategories()
+
+  nock(options.endpoints.projects)
+    .get(`/category/list`)
+    .reply(200, documentCategories)
+
+  const response = await client.getDocumentCategories()
+
+  t.deepEqual(response.body, documentCategories)
 })
