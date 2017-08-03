@@ -365,7 +365,7 @@ test('Get user', async t => {
   t.deepEqual(response.body, user)
 })
 
-test('Get usesr', async t => {
+test('Get users', async t => {
   const client = t.context.client
   const user = fixtures.getUser()
 
@@ -389,4 +389,18 @@ test('Get users by office', async t => {
   const response = await client.getUsersByOffice(1)
 
   t.deepEqual(response.body, user)
+})
+
+test('Update user', async t => {
+  const client = t.context.client
+  const user = fixtures.getUser()
+  const newUserData = fixtures.getUser()
+
+  nock(options.endpoints.users)
+    .put(`/${user.username}`, newUserData)
+    .reply(200, newUserData)
+
+  const response = await client.updateUser(user.username, newUserData)
+
+  t.deepEqual(response.body, newUserData)
 })
