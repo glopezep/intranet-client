@@ -417,3 +417,16 @@ test('Delete user', async t => {
 
   t.deepEqual(response.body, user)
 })
+
+test('Save document category', async t => {
+  const client = t.context.client
+  const documentCategory = fixtures.getDocumentCategory()
+
+  nock(options.endpoints.projects)
+    .post('/category/save', documentCategory)
+    .reply(201, documentCategory)
+
+  const response = await client.saveDocumentCategory(documentCategory)
+
+  t.deepEqual(response.body, documentCategory)
+})
