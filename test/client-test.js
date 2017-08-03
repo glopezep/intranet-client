@@ -456,3 +456,30 @@ test('Get document categories', async t => {
 
   t.deepEqual(response.body, documentCategories)
 })
+
+test('Update document category', async t => {
+  const client = t.context.client
+  const documentCategory = fixtures.getDocumentCategory()
+  const newDocumentCategoryData = fixtures.getDocumentCategory()
+
+  nock(options.endpoints.projects)
+    .put(`/category/${documentCategory.id}`, newDocumentCategoryData)
+    .reply(200, newDocumentCategoryData)
+
+  const response = await client.updateDocumentCategory(documentCategory.id, newDocumentCategoryData)
+
+  t.deepEqual(response.body, newDocumentCategoryData)
+})
+
+test('Delete document category', async t => {
+  const client = t.context.client
+  const documentCategory = fixtures.getDocumentCategory()
+
+  nock(options.endpoints.projects)
+    .delete(`/category/${documentCategory.id}`)
+    .reply(200, documentCategory)
+
+  const response = await client.deleteDocumentCategory(documentCategory.id)
+
+  t.deepEqual(response.body, documentCategory)
+})
