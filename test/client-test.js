@@ -404,3 +404,16 @@ test('Update user', async t => {
 
   t.deepEqual(response.body, newUserData)
 })
+
+test('Delete user', async t => {
+  const client = t.context.client
+  const user = fixtures.getUser()
+
+  nock(options.endpoints.users)
+    .delete(`/${user.username}`)
+    .reply(200, user)
+
+  const response = await client.deleteUser(user.username)
+
+  t.deepEqual(response.body, user)
+})
