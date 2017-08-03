@@ -377,3 +377,16 @@ test('Get usesr', async t => {
 
   t.deepEqual(response.body, user)
 })
+
+test('Get users by office', async t => {
+  const client = t.context.client
+  const user = fixtures.getUser()
+
+  nock(options.endpoints.users)
+    .get(`/office/1/users`)
+    .reply(200, user)
+
+  const response = await client.getUsersByOffice(1)
+
+  t.deepEqual(response.body, user)
+})
