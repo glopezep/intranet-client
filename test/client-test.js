@@ -357,10 +357,10 @@ test('Get user', async t => {
   const user = fixtures.getUser()
 
   nock(options.endpoints.users)
-    .get(`/${user.id}`)
+    .get(`/${user.username}`)
     .reply(200, user)
 
-  const response = await client.getUser(user.id)
+  const response = await client.getUser(user.username)
 
   t.deepEqual(response.body, user)
 })
